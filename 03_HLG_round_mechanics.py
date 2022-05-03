@@ -28,7 +28,7 @@ def num_check(question):
 rounds_played = 0
 
 # Ask user for # of rounds, <enter> for infinite mode
-rounds = num_check("How many rounds? <enter for infinite mode>")
+rounds = num_check("How many rounds? <enter> for infinite mode")
 
 end_game = "no"
 while end_game == "no":

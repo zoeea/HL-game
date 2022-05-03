@@ -1,3 +1,30 @@
+# Function used to check input is valid
+
+
+# Check for an integer more than 0
+def num_check(question):
+    while True:
+        response = input(question).lower()
+
+        round_error = "Please type either <enter> " \
+                      "or an integer that is more than 0 "
+
+        if response == "" or response =="xxx":
+            return response
+
+        else:
+            try:
+                response = int(response)
+
+                if response < 1:
+                    print(round_error)
+                    continue
+
+            except ValueError:
+                print(round_error)
+                continue
+
+        return response
 import random
 import math
 
@@ -122,89 +149,75 @@ rounds = 3      # replace with question asking how many rounds (etc)
 
 # ask for low / high number
 
+# Main routine goes here....
 
+rounds_played = 0
 
-# ***** Main Routine ******
-
-# Ask user for # of rounds..
-print()
-rounds = intcheck("How many rounds or <enter> for infintite: ", 1, exit_code = "")
+# Ask user for # of rounds, <enter> for infinite mode
+rounds = num_check("How many rounds? <enter> for infinite mode")
 
 if rounds == "":
-    print("you chose infinite mode")
+    mode = "infinite"
+    # set rounds to a number!!
+    rounds = 10
 else:
-    print("you asked for {} rounds".format(rounds))
-
-# checks that response is an integer    
-low_num = intcheck("Low Number: ")
-print("You chose a low number of ", low_num)
-
-# checks that response is an integer more than the low number
-high_num = intcheck("High Number: ", low_num)
-print("You chose a high number of ", high_num)
-
-# works out max guesses based on user selected range
-range = high_num - low_num + 1
-max_raw = math.log2(range)  #finds maximum # of guesses using
-max_upped = math.ceil(max_raw)  #rounds up ( ceil -> ceiling)
-max_guesses = max_upped + 1
-print("Max Guesses: {}".format(max_guesses))
-
-print()
-
+    mode = "regular"
 
 end_game = "no"
 while end_game == "no":
-# Start of game play loop
-# ask user if they want to play infinite mode or how many rounds
+    # Start of game play loop
+
+    if end_game == "yes":
+        break
+
+    # ends game if number of requested rounds has been played
     rounds_played +=1
+    
+    if rounds_played == rounds + 1:
+        break
+
+    # Rounds start here
+
+    secret = 7  # replace with secret number in due course
 
     # Rounds Heading
     print()
-    if rounds == "":
+
+
+    if mode == "infinite":
             heading = "Continuous Mode:"
             "Round {}".format(rounds_played)
+            rounds += 1
 
     else:
-        heading = "Rounds {} of {}".format(rounds_played, rounds)
-        
+            heading = "Rounds {} of {}".format(rounds_played, rounds)
+
     print(heading)
 
-    secret = random.randint(low_num, high_num)
-    print()
-    
-    guess = ""
-    while guess != secret:
-        guess = int(input("Guess: "))  # replace with number checker in due course
 
+    guess = ""
+    # guessing for the round goes here
+    while guess != secret:
+    #  Guessing starts here...
+
+        guess = num_check("Guess")  # replace with call to number checking function
+        
         # end game if exit code is typed
         if guess == "xxx":
+            end_game = "yes"
             break
-        elif rounds_played == rounds:
-            break
+            
+        # elif rounds_played == rounds:
+        #     end_game = "yes"
+        #     break
 
-        if guess < secret:
-            print("guess higher")
-        elif guess > secret:
-            print("guess lower")
-        else:
-            print("You have guessed the correct number! ")
-            break
+        # check user guess
 
 
-    
-
-
-
-    # rest of loop / game
-    print("You guessed {}".format(guess))
-
-    
-
-
-    # ask user if they would like to pick the numbers to guess between
-
+        # rest of loop / game
+        print("You guessed: {}".format(guess))
 
     # end game if required
 
 print("Thank you for playing")
+
