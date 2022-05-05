@@ -197,7 +197,6 @@ while end_game == "no":
     # Rounds start here
 
     secret = random.randint(low_num, high_num)
-    print("Spoiler alert", secret)
 
     # Rounds Heading
     print()
