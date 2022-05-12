@@ -118,11 +118,13 @@ def intcheck(question, low=None, high=None, exit_code = None):
 # outputs instructions, returns ""
 def instructions():
     print(""" 
-        *** Instructions ****
-        *****To begin with the computer will ask you to choose a number of rounds OR press <enter> for infinite mode****
-        *****Next you will guess a number , once selecting what numbers you will be guessing between(high and low number)***
-        *****If your number is too high the computer will tell you to go lower , and visa versa, until you guess the correct number****
-          """)
+                                                    *** Instructions ***
+
+    **To begin with the computer will ask you to choose a number of rounds OR press <enter> for infinite mode**
+    **Next you will guess a number , once selecting what numbers you will be guessing between(high and low number)**
+    **If your number is too high the computer will tell you to go lower , and visa versa, until you guess the correct number**
+     
+      """)
 
     return ""
 
@@ -167,12 +169,7 @@ print("You chose a low number of ", low_num)
 high_num = intcheck("High Number: ", low_num)
 print("You chose a high number of ", high_num)
 
-# works out max guesses based on user selected range
-range = high_num - low_num + 1
-max_raw = math.log2(range)  #finds maximum # of guesses using
-max_upped = math.ceil(max_raw)  #rounds up ( ceil -> ceiling)
-max_guesses = max_upped + 1
-print("Max Guesses: {}".format(max_guesses))
+
 
 if rounds == "":
     mode = "infinite"
@@ -196,6 +193,8 @@ while end_game == "no":
 
     # Rounds start here
 
+    numbers_guessed = []
+
     secret = random.randint(low_num, high_num)
 
     # Rounds Heading
@@ -212,15 +211,23 @@ while end_game == "no":
 
     print(heading)
 
+    # works out max guesses based on user selected range
+    range = high_num - low_num + 1
+    max_raw = math.log2(range)  #finds maximum # of guesses using
+    max_upped = math.ceil(max_raw)  #rounds up ( ceil -> ceiling)
+    max_guesses = max_upped + 1
+    print("Max Guesses: {}".format(max_guesses))
 
     guess = ""
     while guess != secret:
         guess = int(input("Guess: "))  # replace with number checker in due course
 
+
         # end game if exit code is typed
         if guess == "xxx":
             break
-       
+        
+        numbers_guessed.append(guess)
 
         if guess < secret:
             print("guess higher")
@@ -234,3 +241,18 @@ while end_game == "no":
 
 print("Thank you for playing")
 
+# game stats 
+
+# find the lowest number
+
+#declaring a list
+list0 = [7,9]
+print ("list = ", )
+ 
+#finding smallest number
+s_num = min(list0)
+s_num_max = max(list0)
+average = sum(list0) / len(list0)
+print ("The smallest number of gueeses in any given round was: ", s_num)
+print ("The largest number of gueeses in any given round was: ", s_num_max)
+print("Average: {}".format(average))
