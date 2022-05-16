@@ -130,10 +130,11 @@ def instructions():
 
 # Main routine goes here....
 
-rounds_played = 0
 
 # intialise game parameters etc
 rounds_played = 0
+
+all_game_guesses = []
 
 
 
@@ -148,9 +149,6 @@ print()
 
 if played_before == "no":
     instructions()
-
-# get game parameters (loc, high)
-rounds = 3      # replace with question asking how many rounds (etc)
 
 # ask for low / high number
 # Ask user for # of rounds, <enter> for infinite mode
@@ -219,15 +217,17 @@ while end_game == "no":
     print("Max Guesses: {}".format(max_guesses))
 
     guess = ""
-    while guess != secret:
-        guess = int(input("Guess: "))  # replace with number checker in due course
+    while guess != secret and len(numbers_guessed) < max_guesses:
+        guess = intcheck("Guess: ", low_num, high_num, "xxx")  # replace with number checker in due course
 
 
         # end game if exit code is typed
         if guess == "xxx":
+            end_game = "yes"
             break
         
-        numbers_guessed.append(guess)
+        else:
+            numbers_guessed.append(guess)
 
         if guess < secret:
             print("guess higher")
@@ -237,22 +237,19 @@ while end_game == "no":
             print("You have guessed the correct number! ")
             break
 
+    all_game_guesses.append(len(numbers_guessed))
 
 
-print("Thank you for playing")
+print("all guesses", all_game_guesses)
 
-# game stats 
-
-# find the lowest number
-
-#declaring a list
-list0 = [7,9]
-print ("list = ", )
- 
 #finding smallest number
-s_num = min(list0)
-s_num_max = max(list0)
-average = sum(list0) / len(list0)
+s_num = min(all_game_guesses)
+s_num_max = max(all_game_guesses)
+average = sum(all_game_guesses) / len(all_game_guesses)
+
 print ("The smallest number of gueeses in any given round was: ", s_num)
 print ("The largest number of gueeses in any given round was: ", s_num_max)
-print("Average: {}".format(average))
+print ("Average number of guesses per round: {}".format(average))
+
+print("Thank you for playing !!")
+
